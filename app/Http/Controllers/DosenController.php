@@ -23,7 +23,13 @@ class DosenController extends Controller
             ->paginate(40)      // ✅ Ubah menjadi 40 per halaman
             ->withQueryString();
 
-        return view('dosen.index', compact('dosens'));
+        // ✅ Hitung penomoran kontinyu per PTKIS
+        $counters = $this->calculateContinuousCounters($search, $dosens);
+        
+        // ✅ Hitung total dosen per PTKIS untuk ditampilkan di header
+        $totalDosenPerPtkis = $this->calculateTotalDosenPerPtkis($search, $dosens);
+
+        return view('dosen.index', compact('dosens', 'counters', 'totalDosenPerPtkis'));
     }
 
     // ➕ Form Tambah Data
@@ -91,12 +97,27 @@ class DosenController extends Controller
             ->paginate(40)      // ✅ Ubah menjadi 40 per halaman
             ->withQueryString();
 
-        // Hitung counter per PTKIS untuk penomoran yang benar
+        // ✅ Hitung penomoran kontinyu per PTKIS
+        $counters = $this->calculateContinuousCounters($search, $dosens);
+        
+        // ✅ Hitung total dosen per PTKIS untuk ditampilkan di header
+        $totalDosenPerPtkis = $this->calculateTotalDosenPerPtkis($search, $dosens);
+
+        return view('dosen1', compact('dosens', 'counters', 'totalDosenPerPtkis'));
+    }
+
+    // ✅ Helper method untuk menghitung penomoran kontinyu per PTKIS
+    private function calculateContinuousCounters($search, $paginatedDosens)
+    {
         $counters = [];
         
-        if ($dosens->count() > 0) {
-            // Ambil semua data yang sesuai filter untuk menghitung posisi
-            $allFilteredDosens = Dosen::query()
+        if ($paginatedDosens->count() > 0) {
+            // Ambil semua data yang sesuai filter sampai halaman saat ini
+            $currentPage = $paginatedDosens->currentPage();
+            $perPage = $paginatedDosens->perPage();
+            $offset = ($currentPage - 1) * $perPage;
+            
+            $allPreviousDosens = Dosen::query()
                 ->when($search, function ($query, $search) {
                     $query->where('nama', 'like', "%$search%")
                           ->orWhere('jabatan', 'like', "%$search%")
@@ -104,28 +125,51 @@ class DosenController extends Controller
                 })
                 ->orderBy('ptkis')
                 ->orderBy('id')
+                ->take($offset) // Ambil data sebelum halaman saat ini
                 ->get();
             
-            // Buat mapping ID ke nomor urut per PTKIS
-            $idToNumber = [];
-            $tempCounters = [];
-            
-            foreach ($allFilteredDosens as $dosen) {
-                if (!isset($tempCounters[$dosen->ptkis])) {
-                    $tempCounters[$dosen->ptkis] = 0;
+            // Hitung berapa banyak dosen per PTKIS yang sudah lewat
+            $previousCounts = [];
+            foreach ($allPreviousDosens as $dosen) {
+                if (!isset($previousCounts[$dosen->ptkis])) {
+                    $previousCounts[$dosen->ptkis] = 0;
                 }
-                $tempCounters[$dosen->ptkis]++;
-                $idToNumber[$dosen->id] = $tempCounters[$dosen->ptkis];
+                $previousCounts[$dosen->ptkis]++;
             }
             
             // Set counter awal untuk setiap PTKIS di halaman ini
-            $groupedDosens = $dosens->groupBy('ptkis');
+            $groupedDosens = $paginatedDosens->groupBy('ptkis');
             foreach ($groupedDosens as $ptkis => $group) {
-                $firstDosenInGroup = $group->first();
-                $counters[$ptkis] = $idToNumber[$firstDosenInGroup->id] - 1;
+                $counters[$ptkis] = isset($previousCounts[$ptkis]) ? $previousCounts[$ptkis] : 0;
             }
         }
 
-        return view('dosen1', compact('dosens', 'counters'));
+        return $counters;
+    }
+
+    // ✅ Helper method untuk menghitung total dosen per PTKIS
+    private function calculateTotalDosenPerPtkis($search, $paginatedDosens)
+    {
+        $totalCounts = [];
+        
+        if ($paginatedDosens->count() > 0) {
+            // Ambil semua data yang sesuai filter untuk menghitung total per PTKIS
+            $allFilteredDosens = Dosen::query()
+                ->when($search, function ($query, $search) {
+                    $query->where('nama', 'like', "%$search%")
+                          ->orWhere('jabatan', 'like', "%$search%")
+                          ->orWhere('ptkis', 'like', "%$search%");
+                })
+                ->select('ptkis')
+                ->get()
+                ->groupBy('ptkis');
+            
+            // Hitung total untuk setiap PTKIS
+            foreach ($allFilteredDosens as $ptkis => $group) {
+                $totalCounts[$ptkis] = $group->count();
+            }
+        }
+
+        return $totalCounts;
     }
 }

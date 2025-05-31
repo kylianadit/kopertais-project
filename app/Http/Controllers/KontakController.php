@@ -39,4 +39,20 @@ class KontakController extends Controller
 
         return view('kontak.index', compact('kontaks'));
     }
+
+    // Menghapus data pesan kontak
+    public function destroy($id)
+    {
+        try {
+            $kontak = Kontak::findOrFail($id);
+            $namaKontak = $kontak->nama; // Simpan nama untuk pesan
+            $kontak->delete();
+            
+            return redirect()->route('kontak.index')
+                           ->with('success', 'Pesan dari "' . $namaKontak . '" berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('kontak.index')
+                           ->with('error', 'Terjadi kesalahan saat menghapus pesan.');
+        }
+    }
 }

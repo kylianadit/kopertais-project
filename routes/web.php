@@ -53,8 +53,8 @@ Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store')
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/kontak', [KontakController::class, 'index'])->name('kontak.index');
+    Route::delete('/admin/kontak/{id}', [KontakController::class, 'destroy'])->name('kontak.destroy');
 });
-
 
 
 Route::get('/pengajuan-rekomendasi', function () {

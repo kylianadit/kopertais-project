@@ -33,11 +33,6 @@
         {{-- Grouped by PTKIS --}}
         @php
             $groupedDosens = $dosens->groupBy('ptkis');
-            // Hitung offset berdasarkan pagination
-            $currentPage = $dosens->currentPage();
-            $perPage = $dosens->perPage();
-            $offset = ($currentPage - 1) * $perPage;
-            $globalNumber = $offset;
         @endphp
 
         @forelse($groupedDosens as $ptkis => $group)
@@ -50,7 +45,7 @@
                         : e($ptkis) !!}
                 </span>
                 <span class="text-sm bg-green-700 px-2 py-1 rounded">
-                    {{ $group->count() }} dosen
+                    {{ $totalDosenPerPtkis[$ptkis] ?? $group->count() }} dosen
                 </span>
             </div>
 
@@ -69,7 +64,10 @@
                     <tbody>
                         @foreach($group as $dosen)
                         <tr class="border-b hover:bg-gray-50 transition-colors">
-                            <td class="px-4 py-3 text-center align-top">{{ ++$globalNumber }}</td>
+                            <td class="px-4 py-3 text-center align-top">
+                                {{-- ✅ Penomoran kontinyu per PTKIS --}}
+                                {{ ++$counters[$ptkis] }}
+                            </td>
                             <td class="px-4 py-3 align-top">
                                 {!! request('search') ? 
                                     str_ireplace(request('search'), '<strong class="text-green-700">'.request('search').'</strong>', $dosen->nama) 
