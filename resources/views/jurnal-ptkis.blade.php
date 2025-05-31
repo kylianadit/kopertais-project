@@ -151,7 +151,7 @@
                                         </a>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">
                                             {{ $jurnal->akreditasi }}
                                         </span>
                                     </td>
