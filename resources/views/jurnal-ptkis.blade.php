@@ -64,9 +64,8 @@
 
 <div class="max-w-7xl mx-auto px-4 py-8">
     <!-- Header with Akreditasi Prodi PTKIS title -->
-    <div class="bg-green-700 rounded-lg shadow p-6 mb-6">
+    <div class="bg-green-600 rounded-lg shadow p-6 mb-6">
         <div class="text-center">
-            <i class="fas fa-university text-3xl text-white mb-3"></i>
             <h1 class="text-2xl font-semibold text-white mb-1">
                 Jurnal PTKIS
             </h1>
