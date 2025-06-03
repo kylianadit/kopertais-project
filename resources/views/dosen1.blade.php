@@ -102,7 +102,7 @@
                 @endforeach
 
                 <!-- Pagination -->
-                <div class="mt-8 flex justify-end">
+                <div class="mt-8 justify-end">
                     {{ $dosens->withQueryString()->links() }}
                 </div>
             @endif
