@@ -6,13 +6,75 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JurnalPtkis;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class JurnalPtkisController extends Controller
 {
-    // Tampilkan daftar jurnal untuk admin (terkelompok per universitas)
-    public function index()
+    // Tampilkan daftar jurnal untuk admin (terkelompok per universitas dengan pagination dan search)
+    public function index(Request $request)
     {
-        $jurnals = JurnalPtkis::all()->groupBy('nama_universitas');
+        $search = $request->get('search');
+        $perPage = 50;
+        $currentPage = $request->get('page', 1);
+
+        // Buat query dengan kondisi search
+        $query = JurnalPtkis::query();
+        
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_universitas', 'like', "%{$search}%")
+                  ->orWhere('nama_jurnal', 'like', "%{$search}%");
+            });
+        }
+
+        // Ambil semua jurnal yang diurutkan dengan filter search
+        $allJournals = $query->orderBy('nama_universitas')->orderBy('id')->get();
+        
+        // Hitung total jurnal dan offset
+        $totalJournals = $allJournals->count();
+        $offset = ($currentPage - 1) * $perPage;
+        
+        // Ambil jurnal untuk halaman saat ini
+        $currentPageJournals = $allJournals->slice($offset, $perPage);
+        
+        // Buat mapping nomor jurnal berdasarkan universitas
+        $universityJournalNumbers = [];
+        
+        // Hitung nomor jurnal untuk setiap universitas dari awal
+        foreach ($allJournals->groupBy('nama_universitas') as $univName => $univJournals) {
+            $universityJournalNumbers[$univName] = [];
+            $counter = 1;
+            foreach ($univJournals as $journal) {
+                $universityJournalNumbers[$univName][$journal->id] = $counter++;
+            }
+        }
+        
+        // Kelompokkan jurnal berdasarkan universitas untuk halaman saat ini
+        $groupedJournals = $currentPageJournals->groupBy('nama_universitas')->map(function ($group) use ($universityJournalNumbers) {
+            return $group->map(function ($journal) use ($universityJournalNumbers) {
+                $journal->display_number = $universityJournalNumbers[$journal->nama_universitas][$journal->id];
+                return $journal;
+            });
+        });
+
+        // Buat paginator sederhana
+        $jurnals = new LengthAwarePaginator(
+            $groupedJournals,
+            $totalJournals,
+            $perPage,
+            $currentPage,
+            [
+                'path' => $request->url(),
+                'pageName' => 'page',
+            ]
+        );
+
+        // Append search parameter ke pagination
+        if ($search) {
+            $jurnals->appends(['search' => $search]);
+        }
+
         return view('jurnal.index', compact('jurnals'));
     }
 
@@ -89,32 +151,79 @@ class JurnalPtkisController extends Controller
         return back()->with('success', 'Jurnal berhasil dihapus');
     }
 
-    // Tampilkan data jurnal untuk publik (dengan pencarian dan skor rata-rata)
+    // Tampilkan data jurnal untuk publik (dengan pencarian, pagination, dan skor rata-rata)
     public function publicView(Request $request)
-{
-    $search = $request->search;
+    {
+        $search = $request->search;
+        $perPage = 50;
+        $currentPage = $request->get('page', 1);
 
-    $query = JurnalPtkis::query();
+        $query = JurnalPtkis::query();
 
-    if ($search) {
-        $query->where(function ($q) use ($search) {
-            $q->where('nama_universitas', 'like', "%{$search}%")
-              ->orWhere('nama_jurnal', 'like', "%{$search}%");
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_universitas', 'like', "%{$search}%")
+                  ->orWhere('nama_jurnal', 'like', "%{$search}%");
+            });
+        }
+
+        // Ambil semua jurnal yang diurutkan
+        $allJournals = $query->orderBy('nama_universitas')->orderBy('id')->get();
+        
+        // Hitung skor overall untuk semua universitas dari semua jurnal
+        $universityOverallScores = $allJournals->groupBy('nama_universitas')->map(function ($group) {
+            return $group->sum('skor');
         });
+        
+        // Hitung total jurnal dan offset
+        $totalJournals = $allJournals->count();
+        $offset = ($currentPage - 1) * $perPage;
+        
+        // Ambil 50 jurnal untuk halaman saat ini
+        $currentPageJournals = $allJournals->slice($offset, $perPage);
+        
+        // Buat mapping nomor jurnal berdasarkan universitas
+        $universityJournalNumbers = [];
+        
+        // Hitung nomor jurnal untuk setiap universitas dari awal
+        foreach ($allJournals->groupBy('nama_universitas') as $univName => $univJournals) {
+            $universityJournalNumbers[$univName] = [];
+            $counter = 1;
+            foreach ($univJournals as $journal) {
+                $universityJournalNumbers[$univName][$journal->id] = $counter++;
+            }
+        }
+        
+        // Kelompokkan jurnal berdasarkan universitas untuk halaman saat ini
+        $universitasList = $currentPageJournals->groupBy('nama_universitas')->map(function ($group) use ($universityJournalNumbers, $universityOverallScores) {
+            $univName = $group->first()->nama_universitas;
+            return (object)[
+                'nama' => $univName,
+                'skor_overall' => $universityOverallScores[$univName], // Gunakan skor dari semua jurnal
+                'jurnals' => $group->map(function ($journal) use ($universityJournalNumbers) {
+                    $journal->journal_number = $universityJournalNumbers[$journal->nama_universitas][$journal->id];
+                    return $journal;
+                }),
+            ];
+        });
+
+        // Buat custom paginator untuk jurnal dengan info yang benar
+        $paginator = new LengthAwarePaginator(
+            $currentPageJournals, // Data jurnal untuk pagination info yang benar
+            $totalJournals,
+            $perPage,
+            $currentPage,
+            [
+                'path' => $request->url(),
+                'pageName' => 'page',
+            ]
+        );
+
+        // Append query parameters untuk search
+        if ($search) {
+            $paginator->appends(['search' => $search]);
+        }
+
+        return view('jurnal-ptkis', compact('universitasList', 'search', 'paginator'));
     }
-
-    $jurnals = $query->get();
-
-    // Kelompokkan berdasarkan universitas dan hitung skor total (bukan rata-rata)
-    $universitasList = $jurnals->groupBy('nama_universitas')->map(function ($group) {
-        return (object)[
-            'nama' => $group->first()->nama_universitas,
-            'skor_overall' => $group->sum('skor'), // <- total skor
-            'jurnals' => $group,
-        ];
-    });
-
-    return view('jurnal-ptkis', compact('universitasList', 'search'));
-}
-
 }

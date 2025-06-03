@@ -58,6 +58,47 @@
             padding-top: 12px;
             padding-bottom: 12px;
         }
+
+        /* Pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .pagination .page-link {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            background-color: white;
+            color: #374151;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .pagination .page-link.active {
+            background-color: #16a34a;
+            border-color: #16a34a;
+            color: white;
+        }
+
+        .pagination .page-link.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .pagination-info {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -66,7 +107,7 @@
     <!-- Header with Akreditasi Prodi PTKIS title -->
     <div class="bg-green-600 rounded-lg shadow p-6 mb-6">
         <div class="text-center">
-            <h1 class="text-2xl font-semibold text-white mb-1">
+            <h1 class="text-2xl font-bold text-white mb-1">
                 Jurnal PTKIS
             </h1>
             <p class="text-white">
@@ -94,7 +135,9 @@
     </div>
 
     <!-- Universities List -->
-    @php $search = request('search'); @endphp
+    @php 
+        $search = request('search'); 
+    @endphp
 
     @forelse ($universitasList as $univ)
         @php
@@ -105,16 +148,18 @@
 
         <div class="bg-white rounded-lg shadow mb-6">
             <!-- University Header as green bar -->
-            <div class="bg-green-600 text-white px-6 py-4 rounded-t-lg">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <h2 class="text-lg font-semibold">{!! $highlightedNamaUniv !!}</h2>
-                    <div class="bg-green-50 px-3 py-2 rounded-lg border border-green-200">
-                        <div class="text-xs text-green-700">Skor Overall</div>
-                        <div class="text-lg font-semibold text-green-800">{{ number_format($univ->skor_overall ?? 0, 2) }}</div>
-                    </div>
-                </div>
+          <div class="bg-green-600 text-white px-6 py-4 rounded-t-lg">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h2 class="text-lg font-semibold">{!! $highlightedNamaUniv !!}</h2>
+        
+        @if(empty($search) || (isset($univ->nama_universitas) && stripos(strtolower($univ->nama_universitas), strtolower($search)) !== false))
+            <div class="bg-green-50 px-3 py-2 rounded-lg border border-green-200">
+                <div class="text-xs text-green-700">Skor Overall</div>
+                <div class="text-lg font-semibold text-green-800">{{ number_format($univ->skor_overall ?? 0, 2) }}</div>
             </div>
-
+        @endif
+    </div>
+</div>
             @if ($univ->jurnals->count())
                 <!-- Journals Table with fixed alignment -->
                 <div class="overflow-x-auto">
@@ -134,14 +179,14 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                            @foreach ($univ->jurnals as $index => $jurnal)
+                            @foreach ($univ->jurnals as $jurnal)
                                 @php
                                     $highlightedNamaJurnal = $search
                                         ? str_ireplace($search, '<strong class="text-black font-semibold">'.$search.'</strong>', $jurnal->nama_jurnal)
                                         : $jurnal->nama_jurnal;
                                 @endphp
                                 <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 text-sm border-r">{{ $index + 1 }}</td>
+                                    <td class="px-4 py-3 text-sm border-r">{{ $jurnal->journal_number }}</td>
                                     <td class="px-4 py-3 text-sm text-gray-800 break-words border-r">{!! $highlightedNamaJurnal !!}</td>
                                     <td class="px-4 py-3 border-r">
                                         <a href="{{ $jurnal->link_jurnal }}" target="_blank"
@@ -173,6 +218,49 @@
             <p class="text-gray-500">Coba ubah kata kunci pencarian Anda</p>
         </div>
     @endforelse
+
+    <!-- Pagination -->
+    @if(isset($paginator) && $paginator->hasPages())
+        <div class="bg-white rounded-lg shadow p-6 mt-6">
+            <div class="pagination">
+                {{-- Previous Page Link --}}
+                @if ($paginator->onFirstPage())
+                    <span class="page-link disabled">
+                        <i class="fas fa-chevron-left"></i> Sebelumnya
+                    </span>
+                @else
+                    <a href="{{ $paginator->previousPageUrl() }}" class="page-link">
+                        <i class="fas fa-chevron-left"></i> Sebelumnya
+                    </a>
+                @endif
+
+                {{-- Pagination Elements --}}
+                @foreach ($paginator->getUrlRange(1, $paginator->lastPage()) as $page => $url)
+                    @if ($page == $paginator->currentPage())
+                        <span class="page-link active">{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                    @endif
+                @endforeach
+
+                {{-- Next Page Link --}}
+                @if ($paginator->hasMorePages())
+                    <a href="{{ $paginator->nextPageUrl() }}" class="page-link">
+                        Selanjutnya <i class="fas fa-chevron-right"></i>
+                    </a>
+                @else
+                    <span class="page-link disabled">
+                        Selanjutnya <i class="fas fa-chevron-right"></i>
+                    </span>
+                @endif
+            </div>
+
+            <div class="pagination-info">
+                Menampilkan {{ $paginator->firstItem() }} sampai {{ $paginator->lastItem() }} 
+                dari {{ $paginator->total() }} jurnal
+            </div>
+        </div>
+    @endif
 </div>
 
 <!-- Footer -->
