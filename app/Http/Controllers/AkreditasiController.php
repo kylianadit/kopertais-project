@@ -128,7 +128,7 @@ class AkreditasiController extends Controller
             'ptkis' => 'required|string|max:255',
             'jenjang' => 'required|string|max:50',
             'prodi' => 'required|string|max:255',
-            'akreditasi' => 'required|string|max:10',
+            'akreditasi' => 'required|string|max:20',
             'exp' => 'required|date',
         ], [
             'ptkis.required' => 'Nama PTKIS wajib diisi',
@@ -164,7 +164,7 @@ class AkreditasiController extends Controller
             'ptkis' => 'required|string|max:255',
             'jenjang' => 'required|string|max:50',
             'prodi' => 'required|string|max:255',
-            'akreditasi' => 'required|string|max:10',
+            'akreditasi' => 'required|string|max:20',
             'exp' => 'required|date',
         ], [
             'ptkis.required' => 'Nama PTKIS wajib diisi',
