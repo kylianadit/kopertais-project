@@ -67,7 +67,7 @@
       </div>
 
       <!-- Teks Nama dan Jabatan -->
-      <div class="bg-white text-green-700 font-semibold rounded-xl px-2 py-2 shadow">
+      <div class="bg-white text-green-700 font-bold rounded-xl px-2 py-2 shadow">
         <p class="border-b border-green-700 pb-1">
           Prof. H. Wan Jamaluddin Z, M.Ag., Ph.D
         </p>

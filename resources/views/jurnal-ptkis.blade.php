@@ -70,7 +70,7 @@
                 Jurnal PTKIS
             </h1>
             <p class="text-white">
-                Berikut Jurnal Jurnal PTKIS
+                Berikut Jurnal Jurnal Perguruan Tinggi Keagamaan Islam Swasta Lampung
             </p>
         </div>
     </div>

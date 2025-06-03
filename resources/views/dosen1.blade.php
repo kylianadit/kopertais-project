@@ -6,11 +6,9 @@
     <title>Daftar Dosen Tersertifikasi</title>
     @vite('resources/css/app.css')
     <style>
-        /* Custom styles untuk alignment yang lebih baik */
         .table-fixed {
             table-layout: fixed;
         }
-        
         .table-cell {
             vertical-align: middle;
             word-wrap: break-word;
@@ -41,11 +39,6 @@
                     <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm">
                         Cari
                     </button>
-                    @if(request('search'))
-                        <a href="{{ route('dosen1') }}" class="text-sm text-gray-600 hover:text-gray-800 underline transition-colors">
-                            Reset
-                        </a>
-                    @endif
                 </form>
             </div>
 
@@ -62,10 +55,8 @@
             @else
                 @php
                     $groupedDosens = $dosens->groupBy('ptkis');
-                    // Counter sudah dihitung di controller, tidak perlu query lagi di sini
                 @endphp
 
-                <!-- Grouped by PTKIS -->
                 @foreach ($groupedDosens as $ptkis => $group)
                 <div class="mb-10 border rounded-md shadow-sm">
                     <div class="bg-green-600 text-white text-lg font-semibold px-4 py-3 rounded-t-md">
@@ -111,7 +102,7 @@
                 @endforeach
 
                 <!-- Pagination -->
-                <div class="mt-8 flex justify-center">
+                <div class="mt-8 flex justify-end">
                     {{ $dosens->withQueryString()->links() }}
                 </div>
             @endif
