@@ -19,19 +19,26 @@ use App\Http\Controllers\Admin\JurnalPtkisController;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-Route::get('/create-admin', function () {
-    $user = User::where('email', 'admin@example.com')->first();
+Route::get('/reset-admin', function () {
+    // Ganti email dan password sesuai kebutuhan
+    $emailLama = 'admin@example.com'; // email admin lama
+    $emailBaru = 'kopertaisxv@admin.com'; // email baru yang kamu mau
+    $passwordBaru = 'kopertais15'; // password baru
 
-    if (!$user) {
-        User::create([
-            'name' => 'Admin',
-            'email' => 'kopertaisxv',
-            'password' => Hash::make('kopertais15'),
-        ]);
-        return '✅ Admin user berhasil dibuat.';
-    } else {
-        return '⚠️ Admin sudah ada.';
+    // Hapus user lama (jika ada)
+    $lama = User::where('email', $emailLama)->first();
+    if ($lama) {
+        $lama->delete();
     }
+
+    // Buat user baru
+    $baru = User::create([
+        'name' => 'Super Admin',
+        'email' => $emailBaru,
+        'password' => Hash::make($passwordBaru),
+    ]);
+
+    return "✅ Admin baru dengan email {$emailBaru} berhasil dibuat.";
 });
 
 
