@@ -16,6 +16,12 @@ use App\Http\Controllers\InformasiGambarController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PtkisJurnalController;
 use App\Http\Controllers\Admin\JurnalPtkisController;
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/link-storage', function () {
+    Artisan::call('storage:link');
+    return '✅ Storage linked!';
+});
 
 
 
