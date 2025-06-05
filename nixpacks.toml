@@ -5,12 +5,12 @@ nixPkgs = ["php82", "php.packages.composer", "nodejs_20", "pnpm"]
 cmds = [
   "composer install --no-dev --optimize-autoloader",
   "pnpm install"
+   "php artisan storage:link"
 ]
 
 [phases.build]
 cmds = [
   "pnpm run build",
-  "php artisan storage:link"
 ]
 
 [start]
