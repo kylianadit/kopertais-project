@@ -138,7 +138,7 @@ Route::resource('akreditasi', \App\Http\Controllers\AkreditasiController::class)
 // ROUTE UNTUK HALAMAN PUBLIK (TIDAK BUTUH LOGIN)
 
 // Halaman landing
-Route::get('/', fn() => view('Laravel is working!'));
+Route::get('/', fn() => view('welcome'));
 
 // Halaman informasi umum
 
