@@ -25,8 +25,8 @@ Route::get('/create-admin', function () {
     if (!$user) {
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password123'),
+            'email' => 'kopertaisxv',
+            'password' => Hash::make('kopertais15'),
         ]);
         return '✅ Admin user berhasil dibuat.';
     } else {
