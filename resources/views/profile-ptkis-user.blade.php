@@ -31,21 +31,37 @@
                     <!-- Card Header -->
                     <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 border-b border-gray-100">
                         <div class="flex items-center space-x-4">
-                            {{-- Logo --}}
+                            {{-- Logo dengan Debug Info --}}
                             <div class="relative">
+                                {{-- DEBUG INFO - Hapus setelah masalah selesai --}}
+                                <div style="border: 2px solid red; background: #ffe6e6; padding: 8px; margin: 5px 0; font-size: 11px; border-radius: 5px; position: absolute; top: -120px; left: 0; z-index: 1000; width: 300px; max-width: 90vw;">
+                                    <strong>🐛 DEBUG - {{ $ptki->nama }}:</strong><br>
+                                    Logo DB value: <code style="background: #fff; padding: 2px;">{{ $ptki->logo ?? 'NULL' }}</code><br>
+                                    File exists: <code style="background: #fff; padding: 2px;">{{ $ptki->logo && Storage::disk('public')->exists($ptki->logo) ? 'YES ✅' : 'NO ❌' }}</code><br>
+                                    Storage URL: <code style="background: #fff; padding: 2px; word-break: break-all;">{{ $ptki->logo ? asset('storage/' . $ptki->logo) : 'No logo' }}</code><br>
+                                    Default URL: <code style="background: #fff; padding: 2px; word-break: break-all;">{{ asset('images/logo.png') }}</code><br>
+                                    @if($ptki->logo)
+                                    Physical path: <code style="background: #fff; padding: 2px; word-break: break-all;">storage/app/public/{{ $ptki->logo }}</code><br>
+                                    @endif
+                                </div>
+
                                 @if ($ptki->website)
                                     <a href="{{ $ptki->website }}" target="_blank" class="block">
                                         <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center group-hover:shadow-lg transition-shadow duration-300 border-2 border-green-100 hover:border-green-200">
                                             <img src="{{ $ptki->logo ? asset('storage/' . $ptki->logo) : asset('images/logo.png') }}"
                                                  alt="Logo {{ $ptki->nama }}"
-                                                 class="w-12 h-12 object-contain hover:scale-110 transition-transform duration-300" />
+                                                 class="w-12 h-12 object-contain hover:scale-110 transition-transform duration-300"
+                                                 onerror="console.log('❌ Image failed to load for {{ $ptki->nama }}:', this.src); this.src='{{ asset('images/logo.png') }}'; this.style.border='2px solid red';" 
+                                                 onload="console.log('✅ Image loaded successfully for {{ $ptki->nama }}:', this.src);" />
                                         </div>
                                     </a>
                                 @else
                                     <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center border-2 border-green-100">
                                         <img src="{{ $ptki->logo ? asset('storage/' . $ptki->logo) : asset('images/logo.png') }}"
                                              alt="Logo {{ $ptki->nama }}"
-                                             class="w-12 h-12 object-contain" />
+                                             class="w-12 h-12 object-contain"
+                                             onerror="console.log('❌ Image failed to load for {{ $ptki->nama }}:', this.src); this.src='{{ asset('images/logo.png') }}'; this.style.border='2px solid red';" 
+                                             onload="console.log('✅ Image loaded successfully for {{ $ptki->nama }}:', this.src);" />
                                     </div>
                                 @endif
                             </div>
@@ -134,4 +150,21 @@
         </div>
     </div>
 </footer>
+
+{{-- TAMBAHAN SCRIPT DEBUG --}}
+<script>
+console.log('🔍 Debug info untuk logo PTKI:');
+console.log('📍 Current page URL:', window.location.href);
+console.log('📍 Storage base URL:', '{{ asset('storage/') }}');
+console.log('📍 Images base URL:', '{{ asset('images/') }}');
+
+// Test akses langsung ke storage dan images
+fetch('{{ asset('storage/') }}')
+    .then(response => console.log('✅ Storage directory accessible:', response.status))
+    .catch(error => console.log('❌ Storage directory error:', error));
+
+fetch('{{ asset('images/logo.png') }}')
+    .then(response => console.log('✅ Default logo accessible:', response.status))
+    .catch(error => console.log('❌ Default logo error:', error));
+</script>
 @endsection
