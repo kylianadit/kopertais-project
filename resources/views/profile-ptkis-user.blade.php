@@ -46,6 +46,12 @@
                                         <img src="{{ $ptki->logo ? asset('images/logo/' . $ptki->logo) : asset('images/logo.png') }}"
                                              alt="Logo {{ $ptki->nama }}"
                                              class="w-12 h-12 object-contain" />
+                                             {{-- Debug info --}}
+                                        <div class="text-xs text-red-500 mt-1">
+                                            Debug: {{ $ptki->logo ?? 'NULL' }}
+                                            <br>
+                                            Full Path: {{ $ptki->logo ? asset('images/logo/' . $ptki->logo) : 'No logo' }}
+                                        </div>
                                     </div>
                                 @endif
                             </div>
