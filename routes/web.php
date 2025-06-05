@@ -16,6 +16,24 @@ use App\Http\Controllers\InformasiGambarController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PtkisJurnalController;
 use App\Http\Controllers\Admin\JurnalPtkisController;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
+Route::get('/create-admin', function () {
+    $user = User::where('email', 'admin@example.com')->first();
+
+    if (!$user) {
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+        return '✅ Admin user berhasil dibuat.';
+    } else {
+        return '⚠️ Admin sudah ada.';
+    }
+});
+
 
 
 
