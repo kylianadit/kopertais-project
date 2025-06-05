@@ -16,29 +16,6 @@ use App\Http\Controllers\InformasiGambarController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PtkisJurnalController;
 use App\Http\Controllers\Admin\JurnalPtkisController;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-
-Route::get('/reset-admin', function () {
-    $emailBaru = 'kopertais@admin.com'; // email baru
-    $passwordBaru = 'kopertais123';     // password baru
-
-    // Hapus semua user lama dulu (opsional)
-    \App\Models\User::truncate();
-
-    // Buat user baru
-    $baru = \App\Models\User::create([
-        'name' => 'Super Admin',
-        'email' => $emailBaru,
-        'password' => Hash::make($passwordBaru),
-    ]);
-
-    return response()->json([
-        'message' => '✅ Admin baru berhasil dibuat.',
-        'email' => $baru->email,
-        'password' => $passwordBaru,
-    ]);
-});
 
 
 
