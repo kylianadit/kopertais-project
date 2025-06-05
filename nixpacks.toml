@@ -9,7 +9,8 @@ cmds = [
 
 [phases.build]
 cmds = [
-  "pnpm run build"
+  "pnpm run build",
+  "php artisan storage:link"
 ]
 
 [start]
