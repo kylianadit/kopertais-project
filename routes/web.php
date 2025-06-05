@@ -20,28 +20,25 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 Route::get('/reset-admin', function () {
-    // Ganti email dan password sesuai kebutuhan
-    $emailLama = 'admin@example.com'; // email admin lama
-    $emailBaru = 'kopertaisxv@admin.com'; // email baru yang kamu mau
-    $passwordBaru = 'kopertais15'; // password baru
+    $emailBaru = 'kopertais@admin.com'; // email baru
+    $passwordBaru = 'kopertais123';     // password baru
 
-    // Hapus user lama (jika ada)
-    $lama = User::where('email', $emailLama)->first();
-    if ($lama) {
-        $lama->delete();
-    }
+    // Hapus semua user lama dulu (opsional)
+    \App\Models\User::truncate();
 
     // Buat user baru
-    $baru = User::create([
+    $baru = \App\Models\User::create([
         'name' => 'Super Admin',
         'email' => $emailBaru,
         'password' => Hash::make($passwordBaru),
     ]);
 
-    return "✅ Admin baru dengan email {$emailBaru} berhasil dibuat.";
+    return response()->json([
+        'message' => '✅ Admin baru berhasil dibuat.',
+        'email' => $baru->email,
+        'password' => $passwordBaru,
+    ]);
 });
-
-
 
 
 
