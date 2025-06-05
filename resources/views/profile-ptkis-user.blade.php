@@ -36,14 +36,14 @@
                                 @if ($ptki->website)
                                     <a href="{{ $ptki->website }}" target="_blank" class="block">
                                         <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center group-hover:shadow-lg transition-shadow duration-300 border-2 border-green-100 hover:border-green-200">
-                                            <img src="{{ $ptki->logo ? asset('storage/' . $ptki->logo) : asset('images/logo.png') }}"
+                                            <img src="{{ $ptki->logo ? asset('images/logo/' . $ptki->logo) : asset('images/logo.png') }}"
                                                  alt="Logo {{ $ptki->nama }}"
                                                  class="w-12 h-12 object-contain hover:scale-110 transition-transform duration-300" />
                                         </div>
                                     </a>
                                 @else
                                     <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center border-2 border-green-100">
-                                        <img src="{{ $ptki->logo ? asset('storage/' . $ptki->logo) : asset('images/logo.png') }}"
+                                        <img src="{{ $ptki->logo ? asset('images/logo/' . $ptki->logo) : asset('images/logo.png') }}"
                                              alt="Logo {{ $ptki->nama }}"
                                              class="w-12 h-12 object-contain" />
                                     </div>
