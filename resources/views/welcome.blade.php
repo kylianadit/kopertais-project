@@ -70,6 +70,11 @@
   </div>
 </header>
 
+<style>
+.debug-desktop { background: red !important; }
+.debug-mobile { background: blue !important; }
+</style>
+
     <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
