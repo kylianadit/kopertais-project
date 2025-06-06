@@ -169,10 +169,12 @@ if (mobileMenuBtn && mobileMenu) {
           <!-- Section: Profile -->
   
     <section id="profile" class="py-20 min-h-screen bg-gradient-to-br from-white to-green-50 p-6 flex flex-col items-center justify-center">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-green-700 text-center mb-12" data-aos="fade-up">
-                Profil Kopertais XV Lampung
-            </h2>
+       	    <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent" data-aos="fade-up">
+                    Profil Kopertais Wilayah XV Lampung
+                </h1>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-600 to-green-400 mx-auto mb-4 rounded-full" data-aos="fade-up" data-aos-delay="50"></div>
+            </div>
 
             <!-- Card Container -->
             <div class="grid md:grid-cols-2 gap-8">
@@ -266,9 +268,12 @@ if (mobileMenuBtn && mobileMenu) {
         <div class="max-w-6xl mx-auto">
             <!-- Header Section -->
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-green-700 mb-4">Jajaran Struktur Jabatan</h2>
-                <p class="text-green-700 text-lg max-w-2xl mx-auto">
-                    Berikut Jajaran Struktur Jabatan Kopertais Wilayah XV Lampung
+                <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent" data-aos="fade-up">
+                    Jajaran Struktur Jabatan
+                </h1>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-600 to-green-400 mx-auto mb-4 rounded-full" data-aos="fade-up" data-aos-delay="50"></div>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Berikut jajaran struktur jabatan Kopertais Wilayah XV Lampung.
                 </p>
             </div>
             
@@ -400,10 +405,15 @@ if (mobileMenuBtn && mobileMenu) {
            <!-- Section: Kelembagaan -->
 
            <section id="kelembagaan" class="min-h-screen bg-gradient-to-br from-white to-blue-50 p-6 flex flex-col items-center justify-center">
-            <h1 class="text-4xl font-bold text-green-700 mb-4" data-aos="fade-up">Halaman Kelembagaan</h1>
-            <p class="text-center text-gray-600 max-w-xl mb-10" data-aos="fade-up" data-aos-delay="100">
-              Silakan pilih salah satu menu di bawah untuk melihat informasi kelembagaan secara lebih lengkap.
-            </p>
+           <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent" data-aos="fade-up">
+                    Halaman Kelembagaan
+                </h1>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-600 to-green-400 mx-auto mb-4 rounded-full" data-aos="fade-up" data-aos-delay="50"></div>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Silahkan pilih salah satu menu di bawah untuk melihat informasi kelembagaan secara lebih lengkap.
+                </p>
+            </div>
           
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
               <!-- Kartu Profil PTKIS -->
@@ -845,8 +855,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
           <!-- Section: Kontak Kami -->
           <section id="kontak" class=" bg-white py-16 container mx-auto px-4">
-            <h2 class="text-2xl font-semibold mb-4" data-aos="fade-up">Kontak Kami</h2>
-            <p class="mb-8" data-aos="fade-up" data-aos-delay="100">Silakan hubungi kami melalui formulir berikut atau langsung ke informasi kontak di bawah.</p>
+            <h2 class="text-3xl text-center text-green-700 font-bold mb-4" data-aos="fade-up">Kontak Kami</h2>
+            <p class="mb-8 text-center text-gray-500" data-aos="fade-up" data-aos-delay="100">Silakan hubungi kami melalui formulir berikut atau langsung ke informasi kontak di bawah.</p>
           
             <div class="grid md:grid-cols-2 gap-8">
               <!-- Form Kontak -->
