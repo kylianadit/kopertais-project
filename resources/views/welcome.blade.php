@@ -45,7 +45,7 @@
     <div class="lg:hidden flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <img src="images/kopertais.png" alt="Logo Kopertais" class="w-6 h-6 object-contain" />
-        <span class="text-lg font-bold text-green-700">Kopertais XV</span>
+        <span class="text-lg font-bold text-green-700">Kopertais Wilayah XV Lampung</span>
       </div>
       <button id="mobileMenuBtn" class="text-gray-700 hover:text-green-700 transition-colors p-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
