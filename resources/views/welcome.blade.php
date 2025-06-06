@@ -21,24 +21,106 @@
         @endif
     </head>
     <body> 
-      <header class="bg-white shadow sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <img src="images/kopertais.png" alt="foto" class="w-7 h-7 object-contain" />
-            <span class="text-xl font-bold text-green-700">Kopertais Wilayah XV Lampung</span>
-          </div>
-          <nav class="flex items-center space-x-4 text-sm font-medium">
-            <a href="#home" class="text-gray-700 hover:text-green-700">Home</a>
-            <a href="#profile" class="text-gray-700 hover:text-green-700">Profil</a>
-            <a href="#ketenagaan" class="text-gray-700 hover:text-green-700">Ketenagaan</a>
-            <a href="#kelembagaan" class="text-gray-700 hover:text-green-700">Kelembagaan</a>
-            <a href="#layanan" class="text-gray-700 hover:text-green-700">Layanan</a>
-            <a href="#informasi" class="text-gray-700 hover:text-green-700">Informasi</a>
-            <a href="#tautan" class="text-gray-700 hover:text-green-700">Tautan Terkait</a>
-            <a href="#kontak" class="text-gray-700 hover:text-green-700">Kontak Kami</a>
-          </nav>
+       <header class="bg-white shadow sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <!-- Desktop Header -->
+            <div class="hidden lg:flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="images/kopertais.png" alt="Logo Kopertais" class="w-7 h-7 object-contain" />
+                    <span class="text-xl font-bold text-green-700">Kopertais Wilayah XV Lampung</span>
+                </div>
+                <nav class="flex items-center space-x-4 text-sm font-medium">
+                    <a href="#home" class="text-gray-700 hover:text-green-700 transition-colors">Home</a>
+                    <a href="#profile" class="text-gray-700 hover:text-green-700 transition-colors">Profil</a>
+                    <a href="#ketenagaan" class="text-gray-700 hover:text-green-700 transition-colors">Ketenagaan</a>
+                    <a href="#kelembagaan" class="text-gray-700 hover:text-green-700 transition-colors">Kelembagaan</a>
+                    <a href="#layanan" class="text-gray-700 hover:text-green-700 transition-colors">Layanan</a>
+                    <a href="#informasi" class="text-gray-700 hover:text-green-700 transition-colors">Informasi</a>
+                    <a href="#tautan" class="text-gray-700 hover:text-green-700 transition-colors">Tautan Terkait</a>
+                    <a href="#kontak" class="text-gray-700 hover:text-green-700 transition-colors">Kontak Kami</a>
+                </nav>
+            </div>
+
+            <!-- Mobile Header -->
+            <div class="lg:hidden flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="images/kopertais.png" alt="Logo Kopertais" class="w-6 h-6 object-contain" />
+                    <span class="text-lg font-bold text-green-700">Kopertais XV</span>
+                </div>
+                <button id="mobileMenuBtn" class="text-gray-700 hover:text-green-700 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu" class="lg:hidden hidden mt-4 pb-4 border-t border-gray-200">
+                <nav class="flex flex-col space-y-3 mt-4">
+                    <a href="#home" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-home w-5 mr-2"></i>Home
+                    </a>
+                    <a href="#profile" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-user w-5 mr-2"></i>Profil
+                    </a>
+                    <a href="#ketenagaan" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-users w-5 mr-2"></i>Ketenagaan
+                    </a>
+                    <a href="#kelembagaan" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-building w-5 mr-2"></i>Kelembagaan
+                    </a>
+                    <a href="#layanan" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-cogs w-5 mr-2"></i>Layanan
+                    </a>
+                    <a href="#informasi" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-info-circle w-5 mr-2"></i>Informasi
+                    </a>
+                    <a href="#tautan" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-link w-5 mr-2"></i>Tautan Terkait
+                    </a>
+                    <a href="#kontak" class="text-gray-700 hover:text-green-700 transition-colors py-2 px-2 rounded hover:bg-green-50">
+                        <i class="fas fa-phone w-5 mr-2"></i>Kontak Kami
+                    </a>
+                </nav>
+            </div>
         </div>
-      </header>
+    </header>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle icon between bars and times
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fas fa-bars text-xl';
+            } else {
+                menuIcon.className = 'fas fa-times text-xl';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fas fa-bars text-xl';
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnMenuBtn = mobileMenuBtn.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnMenuBtn && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fas fa-bars text-xl';
+            }
+        });
+    </script>
     
       <!-- Section: Dashboard -->
       <section id="home" class="bg-green-700 text-white py-20">
