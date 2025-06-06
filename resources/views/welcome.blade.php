@@ -747,7 +747,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start auto-scroll
     function startAutoScroll() {
         if (autoScrollInterval) clearInterval(autoScrollInterval);
-        autoScrollInterval = setInterval(nextSlide, 10000); // 10 detik
+        autoScrollInterval = setInterval(nextSlide, 3000); // 3 detik
         console.log('Auto-scroll started');
     }
     
