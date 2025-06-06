@@ -21,10 +21,35 @@
         @endif
     </head>
     <body> 
-      <header class="bg-white shadow sticky top-0 z-50">
+      <style>
+.desktop-nav {
+  display: flex;
+}
+.mobile-nav {
+  display: none;
+}
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .desktop-nav {
+    display: none;
+  }
+  .mobile-nav {
+    display: flex;
+  }
+}
+
+.mobile-menu.active {
+  display: block;
+}
+</style>
+
+<header class="bg-white shadow sticky top-0 z-50">
   <div class="container mx-auto px-4 py-4">
-    <!-- Desktop Header Only -->
-    <div class="flex justify-between items-center">
+    <!-- Desktop Header -->
+    <div class="desktop-nav justify-between items-center">
       <div class="flex items-center space-x-2">
         <img src="images/kopertais.png" alt="Logo Kopertais" class="w-7 h-7 object-contain" />
         <span class="text-xl font-bold text-green-700">Kopertais Wilayah XV Lampung</span>
@@ -40,8 +65,65 @@
         <a href="#kontak" class="text-gray-700 hover:text-green-700 transition-colors">Kontak Kami</a>
       </nav>
     </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-nav justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <img src="images/kopertais.png" alt="Logo Kopertais" class="w-6 h-6 object-contain" />
+        <span class="text-lg font-bold text-green-700">Kopertais Wilayah XV Lampung</span>
+      </div>
+      <button id="mobileMenuBtn" class="text-gray-700 hover:text-green-700 transition-colors p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobileMenu" class="mobile-menu mt-4 pb-4 border-t border-gray-200">
+      <nav class="flex flex-col space-y-1 mt-4">
+        <a href="#home" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Home</a>
+        <a href="#profile" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Profil</a>
+        <a href="#ketenagaan" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Ketenagaan</a>
+        <a href="#kelembagaan" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Kelembagaan</a>
+        <a href="#layanan" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Layanan</a>
+        <a href="#informasi" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Informasi</a>
+        <a href="#tautan" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Tautan Terkait</a>
+        <a href="#kontak" class="text-gray-700 hover:text-green-700 transition-colors py-3 px-2 rounded hover:bg-green-50">Kontak Kami</a>
+      </nav>
+    </div>
   </div>
 </header>
+
+<script>
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (mobileMenuBtn && mobileMenu) {
+  mobileMenuBtn.addEventListener('click', function() {
+    mobileMenu.classList.toggle('active');
+  });
+
+  // Close mobile menu when clicking on a link
+  const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      mobileMenu.classList.remove('active');
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const isClickInsideMenu = mobileMenu.contains(event.target);
+    const isClickOnMenuBtn = mobileMenuBtn.contains(event.target);
+    
+    if (!isClickInsideMenu && !isClickOnMenuBtn && mobileMenu.classList.contains('active')) {
+      mobileMenu.classList.remove('active');
+    }
+  });
+}
+</script>
     
       <!-- Section: Dashboard -->
       <section id="home" class="bg-green-700 text-white py-20">
