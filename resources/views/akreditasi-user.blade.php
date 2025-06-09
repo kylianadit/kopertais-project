@@ -16,7 +16,7 @@
                     type="text" 
                     name="search" 
                     id="searchInput"
-                    placeholder="Cari nama PTKIS..." 
+                    placeholder="Cari nama Prodi, PTKIS..." 
                     value="{{ request('search') }}"
                     class="px-4 py-2 border border-gray-300 rounded-md w-full md:w-64 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
                 
