@@ -284,8 +284,8 @@ if (mobileMenuBtn && mobileMenu) {
                     <div class="aspect-square overflow-hidden">
                         <img src="images/WK-1.png">
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Prof. Dr.Alamsyah, S.Ag., M.Ag</h3>
+                    <div class="p-3 text-center">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Prof. Dr. H. Alamsyah, S.Ag., M.Ag</h3>
                         <p class="text-green-700 font-semibold mb-3">Wakil Koordinator I</p>
                         <p class="text-gray-600 text-sm">
                             Wakil Koordinator I Kopertais Wilayah XV Lampung
@@ -298,8 +298,8 @@ if (mobileMenuBtn && mobileMenu) {
                     <div class="aspect-square overflow-hidden">
                         <img src="images/WR-2.png">
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Dr. Safari, S.Ag., M.Sos.I.</h3>
+                    <div class="p-3 text-center">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Prof. Dr. Safari, S.Ag., M.Sos.I.</h3>
                         <p class="text-green-700 font-semibold mb-3">Wakil Koordinator II</p>
                         <p class="text-gray-600 text-sm">
                             Wakil Koordinator II Kopertais Wilayah XV Lampung
@@ -310,9 +310,9 @@ if (mobileMenuBtn && mobileMenu) {
                 <!-- Card 3 -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <div class="aspect-square overflow-hidden">
-                        <img src="images/sekretaris-2.png">
+                        <img src="images/sekretaris_new.png">
                     </div>
-                    <div class="p-6 text-center">
+                    <div class="p-3 text-center">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Dr. M. Afif Amrulloh, M.Pd.I.</h3>
                         <p class="text-green-700 font-semibold mb-3">Sekretaris Koordinator</p>
                         <p class="text-gray-600 text-sm">
