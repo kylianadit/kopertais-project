@@ -10,7 +10,8 @@
             <div class="absolute bottom-10 right-10 w-40 h-40 bg-white bg-opacity-5 rounded-full blur-2xl"></div>
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-white bg-opacity-5 rounded-full blur-3xl"></div>
         </div>
-        
+        <link rel="icon" type="image/png" href="{{ asset('images/kopertais.png') }}">
+
         <div class="relative container mx-auto px-4 text-center">
            
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">

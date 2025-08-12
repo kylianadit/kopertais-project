@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Kopertais xv lampung</title>
+        <title>Kopertais XV Lampung</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/kopertais.png') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -649,7 +650,7 @@ if (mobileMenuBtn && mobileMenu) {
                             Beban Kerja Dosen (BKD)
                         </h2>
                         <p class="text-gray-600 mb-6 leading-relaxed">
-                            Kelola pelaporan beban kerja dosen secara daring.
+                            Kelola pelaporan beban kerja dosen secara daring dengan lebih mudah dan efisien.
                         </p>
                     </div>
                     <a href="https://bkd.kopertais15.or.id/" target="_blank"
@@ -718,11 +719,6 @@ if (mobileMenuBtn && mobileMenu) {
             </div>
             
 
-            
-            {{-- Pause indicator --}}
-            <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm opacity-0 transition-opacity" id="pause-indicator">
-                ⏸ Paused
-            </div>
         </div>
     </div>
 </section>
@@ -836,7 +832,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3 class="text-xl font-bold mb-3 text-gray-800 group-hover:text-green-700 transition-colors">Pengumuman</h3>
                         <p class="text-gray-600 leading-relaxed">Berikut pengumuman dapat anda kunjungi sekarang.</p>
                     </div>
-                    <a href="/pengumuman" target="_blank"
+                    <a href="/pengumuman" target=""
                        class="mt-6 self-center px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:scale-105">
                         Kunjungi
                     </a>

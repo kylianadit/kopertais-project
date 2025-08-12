@@ -16,6 +16,8 @@ use App\Http\Controllers\InformasiGambarController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PtkisJurnalController;
 use App\Http\Controllers\Admin\JurnalPtkisController;
+use App\Http\Controllers\PengajuanRekomendasiController;
+
 
 
 

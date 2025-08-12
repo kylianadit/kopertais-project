@@ -17,7 +17,7 @@
                         Selamat datang, Admin Kopertais!
                     </h1>
                     <p class="text-lg text-gray-700 dark:text-gray-300">
-                        Silakan pilih menu di atas untuk mulai mengelola data. Semoga harimu produktif dan penuh berkah!
+                        Silakan pilih menu untuk mulai mengelola data. Semoga harimu produktif dan penuh berkah!
                     </p>
                 </div>
             </div>

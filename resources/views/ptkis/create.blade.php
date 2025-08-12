@@ -24,14 +24,14 @@
         </div>
 
        <div>
-        <label class="block font-medium">Website (Opsional)</label>
+        <label class="block font-medium">Website</label>
         <input type="url" name="website" class="w-full border rounded px-3 py-2">
        </div>
 
 
         <!-- Tambahkan input file untuk logo -->
         <div>
-            <label class="block font-medium">Logo (Opsional)</label>
+            <label class="block font-medium">Logo</label>
             <input type="file" name="logo" class="w-full border rounded px-3 py-2">
         </div>
 

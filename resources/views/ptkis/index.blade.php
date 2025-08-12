@@ -74,15 +74,17 @@
                         <td class="border px-4 py-2">{{ $ptki->akreditasi }}</td>
                         <td class="border px-4 py-2">{{ $ptki->alamat }}</td>
                         <td class="border px-4 py-2">
-                            <div class="flex flex-wrap gap-2">
+                           <div class="flex items-center gap-2">
+                                {{-- Tombol Edit --}}
                                 <a href="{{ route('ptkis.edit', $ptki->id) }}" 
-                                   class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
                                     Edit
                                 </a>
+
+                                {{-- Tombol Hapus --}}
                                 <form action="{{ route('ptkis.destroy', $ptki->id) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Yakin ingin menghapus data ini?')"
-                                      class="inline-block">
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
